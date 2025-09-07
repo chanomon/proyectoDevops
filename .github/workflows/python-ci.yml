@@ -1,0 +1,38 @@
+name: Python CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout código
+      uses: actions/checkout@v4
+
+    - name: Configurar Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Instalar dependencias
+      run: |
+        python -m pip install --upgrade pip
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+    - name: Ejecutar script de prueba
+      run: python hello.py
+
+    - name: Verificar que el script funciona correctamente
+      run: |
+        output=$(python hello.py)
+        if [[ "$output" == *"Test exitoso"* ]]; then
+          echo "✅ Test pasado correctamente"
+        else
+          echo "❌ Test falló"
+          exit 1
+        fi
