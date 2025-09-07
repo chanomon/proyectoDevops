@@ -2,7 +2,7 @@
 
 def main():
     print("Test exitoso")
-    print("Hola Mundo desde GitHub Actions!Aquí va mi comment")
+    print("Hola Mundo desde GitHub Actions!")
 
 if __name__ == "__main__":
     main()
